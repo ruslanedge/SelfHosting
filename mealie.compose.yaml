@@ -15,48 +15,19 @@ services:
           memory: 1000M # 
     volumes:
       - mealie-data:/app/data/
-    networks:
-      - proxy
-    environment:
-      # Set Backend ENV Variables Here
-      ALLOW_SIGNUP: "false"
-      PUID: 1000
-      PGID: 1000
-      TZ: America/Anchorage
-      BASE_URL: https://mealie.yourdomain.com
-      # Database Settings
-      DB_ENGINE: postgres
-      POSTGRES_USER: mealie
-      POSTGRES_PASSWORD: mealie
-      POSTGRES_SERVER: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: mealie
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mealie.rule=Host(`mealie-local.roosterweb.net`)" 
+      - "traefik.http.routers.mealie.rule=Host(`mealie.roosterweb.net`)" 
       - "traefik.http.routers.mealie.entrypoints=https"
       - "traefik.http.routers.mealie.tls=true"
       - "traefik.http.services.mealie.loadbalancer.server.port=9000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-  postgres:
-    container_name: postgres
-    image: postgres:15
-    restart: always
-    volumes:
-      - mealie-pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: mealie
-      POSTGRES_USER: mealie
-      PGUSER: mealie
-    healthcheck:
-      test: ["CMD", "pg_isready"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: "true"
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Regina
+      BASE_URL: https://mealie.roosterweb.net
 
 volumes:
   mealie-data:
-  mealie-pgdata:

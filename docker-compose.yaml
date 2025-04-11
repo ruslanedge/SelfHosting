@@ -14,7 +14,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1000M # 
+          memory: 2000M # 
     volumes:
       - mealie-data:/app/data/
     labels:
@@ -26,9 +26,10 @@ services:
     environment:
       # Set Backend ENV Variables Here
       ALLOW_SIGNUP: "true"
-      PUID: 1000
-      PGID: 1000
+      PUID: 911
+      PGID: 911
       TZ: America/Regina
+      DEFAULT_HOUSEHOLD: "130B"
       BASE_URL: https://mealie.roosterweb.net
 
 volumes:
